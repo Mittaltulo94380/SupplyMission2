@@ -1,10 +1,11 @@
 var helicopterIMG, helicopterSprite, packageSprite,packageIMG;
 var packageBody,ground
 const Engine = Matter.Engine;
-const World = Matter.World;
+const World = Matter.World; 
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
-var Box1,Box2,Box3;
+
+
 
 function preload()
 {
@@ -13,7 +14,7 @@ function preload()
 }
 
 function setup() {
-	createCanvas(800, 700);
+	createCanvas(800,700);
 	rectMode(CENTER);
 	
 	packageSprite=createSprite(width/2, 80, 10,10);
@@ -24,23 +25,28 @@ function setup() {
 	helicopterSprite.addImage(helicopterIMG)
 	helicopterSprite.scale=0.6
 
-	groundSprite=createSprite(width/2, height-35, width,10);
-	groundSprite.shapeColor=color(255)
+	groundSprite=createSprite(width/2, height-35, width,70);
+	groundSprite.shapeColor=("green")
 
 	engine = Engine.create();
 	world = engine.world;
 
-	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.7,isStatic:true});
+	packageBody = Bodies.circle(width/2 , 200 , 5 , {restitution:0.0,isStatic:true});
 	World.add(world, packageBody);
 	
 	//Create a Ground
-	ground = Bodies.rectangle(width/2, 650, width, 10 , {isStatic:true} );
-	 World.add(world, ground);
+	ground = Bodies.rectangle(width/2, 650, width, 70 , {isStatic:true} );
+	 World.add(world,ground);
 
-	Box1 = new box(350,300,200,20); 
-	Box2 = new box(200,200,200,20);
-	Box3 = new box(200,300,200,20);
-
+	 bottomBox = createSprite(width/2,640,200,20);
+	 bottomBox.shapeColor = ("red");
+	 
+	 sideBox = createSprite(290,600,20,100);
+	 sideBox.shapeColor = ("red");
+ 
+	 sideBox1 = createSprite(510,600,20,100);
+	 sideBox1.shapeColor = ("red");
+ 
 	 keyPressed();
 
 	Engine.run(engine);
@@ -52,13 +58,10 @@ function draw() {
   background(0);
   Engine.update(engine);
 
-  ellipseMode(RADIUS);
-  packageSprite.x= packageBody.position.x 
-  packageSprite.y= packageBody.position.y 
+  packageSprite.x = packageBody.position.x 
+  packageSprite.y = packageBody.position.y 
 
-  Box1.display();
-  Box2.display();
-  Box3.display();
+  background("lightBlue");
 
   drawSprites();
  
@@ -70,5 +73,3 @@ function keyPressed() {
 	   Matter.Body.setStatic(packageBody,false); 
 	}
   }
-
-
